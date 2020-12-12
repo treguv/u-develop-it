@@ -5,10 +5,9 @@ const sqlite3 = require("sqlite3").verbose();
 const inputCheck = require("./utils/inputCheck");
 const db = require("./db/database");
 const apiRoutes = require("./routes/apiRoutes"); //load the file
-app.use("/api", apiRoutes); //set these routes for the
-//add midleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use("/api", apiRoutes);
 
 //catch all invalid requests not supported by the server
 app.use((req, res) => {

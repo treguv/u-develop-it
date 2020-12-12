@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db/database");
 const inputCheck = require("../../utils/inputCheck");
-
 //voter routes
 router.get("/voters", (req, res) => {
   const sql = `SELECT * FROM voters ORDER BY last_name`;
@@ -50,12 +49,13 @@ router.post("/voter", (req, res) => {
 
     res.json({
       message: "success",
-      data: body,
+      data: req.body,
       id: this.lastID,
     });
   });
 });
 
+//updates email
 router.put("/voter/:id", (req, res) => {
   // Data validation
   const errors = inputCheck(req.body, "email");

@@ -88,34 +88,34 @@ router.put("/candidate/:id", (req, res) => {
   });
 });
 
-// //post route to add into db
-// router.post("/candidate", ({ body }, res) => {
-//   const errors = inputCheck(
-//     body,
-//     "first_name",
-//     "last_name",
-//     "industry_connected"
-//   );
-//   if (errors) {
-//     res.status(400).json({ error: errors });
-//     return;
-//   }
-//   //if we are don here that means the data is valid
+//post route to add into db
+router.post("/candidate", ({ body }, res) => {
+  const errors = inputCheck(
+    body,
+    "first_name",
+    "last_name",
+    "industry_connected"
+  );
+  if (errors) {
+    res.status(400).json({ error: errors });
+    return;
+  }
+  //if we are don here that means the data is valid
 
-//   const sql = `INSERT INTO candidates (first_name, last_name, industry_connected)
-//       VALUES (?,?,?)`;
-//   const params = [body.first_name, body.last_name, body.industry_connected];
-//   db.run(sql, params, function (err, result) {
-//     if (err) {
-//       res.status(400).json({ error: err.message });
-//       return;
-//     }
-//     res.json({
-//       message: "success",
-//       data: body,
-//       id: this.lastID,
-//     });
-//   });
-// });
+  const sql = `INSERT INTO candidates (first_name, last_name, industry_connected)
+      VALUES (?,?,?)`;
+  const params = [body.first_name, body.last_name, body.industry_connected];
+  db.run(sql, params, function (err, result) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: body,
+      id: this.lastID,
+    });
+  });
+});
 console.log("well we are here");
 module.exports = router;
