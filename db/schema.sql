@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS parties;
 DROP TABLE IF EXISTS candidates;
 DROP TABLE IF EXISTS voters;
+DROP TABLE IF EXISTS votes;
 CREATE TABLE parties (
   id INTEGER PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
@@ -31,3 +32,15 @@ CREATE TABLE voters (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP --CURRENT_TIMESTAMP based on server not client
 );
 --CURRENT_TIMESTAMP based on server not client
+--Make votes table
+CREATE TABLE votes(
+  id INTEGER PRIMARY KEY,
+  voter_id INTEGER UNSIGNED NOT NULL,
+  candidate_id INTEGER UNSIGNED NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT uc_voter UNIQUE (voter_id),
+  --voter id must be unique
+  --On delete cascade deletes whole row if 
+  CONSTRAINT fk_voter FOREIGN KEY (voter_id) REFERENCES voters(id) ON DELETE CASCADE,
+  CONSTRAINT fk_candidate FOREIGN KEY (candidate_id) REFERENCES candidates(id) ON DELETE CASCADE
+);
